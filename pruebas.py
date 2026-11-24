@@ -10,7 +10,7 @@ def recortar_nombre(nombre, largo=15):
     """Devuelve el nombre tal cual si cabe; si no, lo recorta y agrega '...'."""
     if len(nombre) <= largo:
         return nombre
-    return nombre[:largo - 2] + '...'
+    return nombre[:largo - 3] + '...'
 
 
 def imprimir_tabla(productos):
