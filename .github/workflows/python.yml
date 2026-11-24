@@ -27,9 +27,22 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Paso 3: ejecutar tus scripts (comandos normales de terminal)
+      # Paso 3: instalar pytest (la máquina virtual viene sin él)
+      - name: Instalar dependencias
+        run: pip install pytest
+
+      # Paso 4: nivel 1, revisar que no haya errores de sintaxis
+      - name: Compilar
+        run: python -m py_compile main.py pruebas.py
+
+      # Paso 5: nivel 2, ejecutar los scripts
       - name: Ejecutar main.py
         run: python main.py
 
       - name: Ejecutar pruebas.py
         run: python pruebas.py
+
+      # Paso 6: nivel 3, correr las pruebas
+      # -v = "verbose": muestra cada prueba con su resultado
+      - name: Correr pruebas
+        run: pytest -v
