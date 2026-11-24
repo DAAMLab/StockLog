@@ -1,0 +1,35 @@
+# Nombre que verás en la pestaña "Actions" de GitHub
+name: Ejecutar scripts de Python
+
+# ¿CUÁNDO se ejecuta este workflow? (los "disparadores")
+on:
+  push:                  # cada vez que subes commits...
+    branches: [main]     # ...a la rama main
+  pull_request:          # cuando alguien abre/actualiza un PR hacia main
+    branches: [main]
+  workflow_dispatch:     # permite ejecutarlo a mano con un botón en GitHub
+
+# ¿QUÉ se ejecuta? Un workflow tiene uno o más "jobs" (trabajos)
+jobs:
+  ejecutar:                       # id interno del job (lo eliges tú)
+    name: Correr main y pruebas   # nombre visible en GitHub
+    runs-on: ubuntu-latest        # máquina virtual donde corre (Linux gratis de GitHub)
+
+    # Cada job es una lista de "steps" (pasos) que se ejecutan en orden
+    steps:
+      # Paso 1: descargar el código de tu repositorio en la máquina virtual
+      - name: Descargar el código
+        uses: actions/checkout@v4
+
+      # Paso 2: instalar Python
+      - name: Instalar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Paso 3: ejecutar tus scripts (comandos normales de terminal)
+      - name: Ejecutar main.py
+        run: python main.py
+
+      - name: Ejecutar pruebas.py
+        run: python pruebas.py
